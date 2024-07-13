@@ -48,6 +48,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_PieceName: 4
   m_PieceType: 0
+  m_Render: {fileID: 21300000, guid: b3faf4b05f7c3421a81d0ef6d45c719f, type: 3}
 --- !u!1001 &2269614546664866852
 PrefabInstance:
   m_ObjectHideFlags: 0

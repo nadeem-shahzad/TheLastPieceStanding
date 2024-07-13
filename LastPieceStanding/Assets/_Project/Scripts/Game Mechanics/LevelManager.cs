@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class LevelManager : MonoBehaviour
@@ -46,6 +47,13 @@ public class LevelManager : MonoBehaviour
             }
         }
         
+        
+        if (data.playerAdditionalMoves.Count > 0)
+        {
+            var allPieces = data.playerAdditionalMoves.Select(enemyData => PiecesManager.Instance.GetPiece(enemyData)).ToList();
+            UIViewManager.GetUIView<GamePlayPanelView>().InitializePieceCards(allPieces);
+        }
+        
     }
 
 
@@ -54,8 +62,11 @@ public class LevelManager : MonoBehaviour
         var jsonFile = Resources.Load<TextAsset>($"Levels/{Level}");
         return JsonUtility.FromJson<LevelData>(jsonFile.text);
     }
-    
-    
+
+    public void OnStartClick()
+    {
+        UIViewManager.Show<GamePlayPanelView>();
+    }
     
     
 }
