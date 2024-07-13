@@ -782,6 +782,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: UI Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 8890968479766430966, guid: ecd26b2f121ba448cb7b97ecdd2e04c8,
+        type: 3}
+      propertyPath: m_CellSize.x
+      value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: 8890968479766430966, guid: ecd26b2f121ba448cb7b97ecdd2e04c8,
+        type: 3}
+      propertyPath: m_Constraint
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8890968479766430966, guid: ecd26b2f121ba448cb7b97ecdd2e04c8,
+        type: 3}
+      propertyPath: m_ConstraintCount
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
