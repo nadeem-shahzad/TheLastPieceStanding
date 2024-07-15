@@ -475,6 +475,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50, y: 0, z: 0}
+--- !u!114 &1487929254 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2544114042568262914, guid: ecd26b2f121ba448cb7b97ecdd2e04c8,
+    type: 3}
+  m_PrefabInstance: {fileID: 2110284376}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f132a9a738daa4119a12d2bd79e38597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1537821018
 GameObject:
   m_ObjectHideFlags: 0
@@ -652,6 +664,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2406951281454676807, guid: ecd26b2f121ba448cb7b97ecdd2e04c8,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0.0031585693
+      objectReference: {fileID: 0}
     - target: {fileID: 2544114042568262924, guid: ecd26b2f121ba448cb7b97ecdd2e04c8,
         type: 3}
       propertyPath: m_IsActive
@@ -781,6 +798,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: UI Canvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 3618826299766534649, guid: ecd26b2f121ba448cb7b97ecdd2e04c8,
+        type: 3}
+      propertyPath: _NextView
+      value: 
+      objectReference: {fileID: 1487929254}
+    - target: {fileID: 3618826299766534649, guid: ecd26b2f121ba448cb7b97ecdd2e04c8,
+        type: 3}
+      propertyPath: _loadingTime
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4686959335709573582, guid: ecd26b2f121ba448cb7b97ecdd2e04c8,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -11.099976
       objectReference: {fileID: 0}
     - target: {fileID: 8890968479766430966, guid: ecd26b2f121ba448cb7b97ecdd2e04c8,
         type: 3}
