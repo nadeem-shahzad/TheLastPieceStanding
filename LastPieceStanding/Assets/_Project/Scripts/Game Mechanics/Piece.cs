@@ -8,6 +8,9 @@ public class Piece : MonoBehaviour
     [SerializeField] private ePieceName m_PieceName;
     [SerializeField] private ePieceType m_PieceType;
     [SerializeField] private Sprite m_Render;
+    [SerializeField] private EnemyLineToMove m_LineRenderer;
+    [SerializeField] private Tile m_NextTile;
+    [SerializeField] private Tile m_PreviousTile;
     
     private MeshRenderer[] m_AllRenderers;
     public ePieceName PieceName
@@ -41,30 +44,81 @@ public class Piece : MonoBehaviour
             BoardManager.Instance.SetPlayer(this);
             Invoke(nameof(PlayerMove),1f);
         }
+        // else
+        // {
+        //     SpawnLineRenderer();
+        //     m_NextTile = BoardManager.Instance.GetTilesToMoveOnForEnemy(this);
+        //     m_LineRenderer.UpdateLineCoordinates(1f,180f);
+        // }
         
         Invoke(nameof(MovePieceToTile),2f);
     }
 
     public void MovePieceToTile()
     {
-        BoardManager.Instance.GetTile(transform.position).SetPieceHere(this);
-    }
-    
-    
-
-    private void OnMouseDown()
-    {
+        if (m_NextTile == null)
+        {
+            m_PreviousTile = BoardManager.Instance.GetTile(transform.position);
+            m_PreviousTile.SetPieceHere(this);
+        }
+        else
+        {
+            
+        }
+        
+        
         if (IsPlayerPiece is false)
-            return;
+        {
+            SpawnLineRenderer();
+            m_NextTile = BoardManager.Instance.GetTilesToMoveOnForEnemy(this);
+            var coordinates = CalculateCoordinates();
+            m_LineRenderer.UpdateLineCoordinates(coordinates.zLength,coordinates.yRotation);
+        }
+    }
 
-        // var tiles= BoardManager.Instance.GetTilesToMoveOn(this);
-        //
-        // foreach (var tile in tiles)
-        //     tile.HighlightTile(true);
+    private (float zLength, float yRotation) CalculateCoordinates()
+    {
+        float zLength = m_NextTile.Position.z - Position.z;
+        if (m_NextTile.Position.x == Position.x)
+        {
+            return (zLength,0f);
+        }
+        else
+        {
+            float angle = Vector3.Angle(m_NextTile.Position, Position);
+            float sign = Mathf.Sign(Vector3.Dot(Vector3.up, Vector3.Cross(m_NextTile.Position, Position)));
+            float yRotation = angle * sign;
+            
+            if (yRotation> 0)
+                yRotation = 45;
+            else
+                yRotation = -45;
+            
+            return (zLength * 1.43f,yRotation);
+        }
+
+    }
+    
+    private void SpawnLineRenderer()
+    {
+        m_LineRenderer = Instantiate(m_LineRenderer, transform);
     }
 
 
-
+    private void MoveEnemyPiece()
+    {
+        var tile = m_NextTile;
+        
+        var hashTable = iTween.Hash("position", tile.Position, "speed", 2.5f, "easetype", iTween.EaseType.easeInOutCubic, 
+            "oncompletetarget",gameObject, "oncomplete","OnCompleteMove");
+        iTween.MoveTo(gameObject, hashTable);
+    }
+    
+    private void OnCompleteMove(Tile tile)
+    {
+        // KingRule(m_Player.Position);
+    }
+    
     private void PlayerMove()
     {
         BoardManager.Instance.GetTilesToMoveOn(ePieceName.King);

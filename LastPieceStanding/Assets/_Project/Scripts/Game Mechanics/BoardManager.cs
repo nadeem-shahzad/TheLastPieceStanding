@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -111,9 +112,66 @@ public class BoardManager : MonoBehaviour
       }
       
    }
+   
+   public Tile GetTilesToMoveOnForEnemy(Piece piece)
+   {
+      List<Tile> allTiles = new List<Tile>();
+      switch (piece.PieceName)
+      {
+         case ePieceName.King:
+            allTiles = KingRule(piece.Position, false);
+            break;
+         case ePieceName.Queen:
+            allTiles = QueenRule(piece.Position,false);
+            break;
+         case ePieceName.Knight:
+            allTiles = KnightRule(piece.Position,false);
+            break;
+         case ePieceName.Bishop:
+            allTiles = BishopRule(piece.Position,false);
+            break;
+         case ePieceName.Rook:
+            allTiles = RookRule(piece.Position,false);
+            break;
+         case ePieceName.Pawn:
+            allTiles = PawnRule(piece.Position,false);
+            break;
+         default:
+            break;
+      }
 
+      Tile FarthestTile = allTiles[0];
+      
+      float minDistance = Mathf.Abs(allTiles[0].Position.z);
 
-   private void KingRule(Vector3 position)
+      foreach (var tile in allTiles)
+      {
+         float distance = Mathf.Abs(tile.Position.z);
+         if (distance < minDistance)
+         {
+            minDistance = distance;
+            FarthestTile = tile;
+         }
+      }
+
+      // float maxDistance = Vector3.Distance(piece.Position, allTiles[0].Position);
+      //
+      // foreach (var tile in allTiles)
+      // {
+      //    float distance = Vector3.Distance(piece.Position, tile.Position);
+      //    if (distance > maxDistance)
+      //    {
+      //       maxDistance = distance;
+      //       FarthestTile = tile;
+      //    }
+      // }
+
+      return FarthestTile;
+   }
+
+   #region All Rules 
+   
+   private List<Tile> KingRule(Vector3 position, bool IsPlayerMove = true)
    {
       var tiles = new List<Tile>();
       
@@ -140,11 +198,19 @@ public class BoardManager : MonoBehaviour
          }
       }
 
-      PreviousSelectedTiles = CurrentSelectedTiles;
-      CurrentSelectedTiles = tiles;
-      HighlightTiles();
+      if (IsPlayerMove)
+      {
+         PreviousSelectedTiles = CurrentSelectedTiles;
+         CurrentSelectedTiles = tiles;
+         HighlightTiles();
+      }
+      else
+      {
+         return tiles;
+      }
+      return null;
    }
-   private void KnightRule(Vector3 position)
+   private List<Tile> KnightRule(Vector3 position, bool IsPlayerMove = true)
    {
       var tiles = new List<Tile>();
       
@@ -171,11 +237,19 @@ public class BoardManager : MonoBehaviour
          }
       }
 
-      PreviousSelectedTiles = CurrentSelectedTiles;
-      CurrentSelectedTiles = tiles;
-      HighlightTiles();
+      if (IsPlayerMove)
+      {
+         PreviousSelectedTiles = CurrentSelectedTiles;
+         CurrentSelectedTiles = tiles;
+         HighlightTiles();
+      }
+      else
+      {
+         return tiles;
+      }
+      return null;
    }
-   private void RookRule(Vector3 position)
+   private List<Tile> RookRule(Vector3 position, bool IsPlayerMove = true)
    {
       var tiles = new List<Tile>();
 
@@ -241,11 +315,19 @@ public class BoardManager : MonoBehaviour
          }
       }
 
-      PreviousSelectedTiles = CurrentSelectedTiles;
-      CurrentSelectedTiles = tiles;
-      HighlightTiles();
+      if (IsPlayerMove)
+      {
+         PreviousSelectedTiles = CurrentSelectedTiles;
+         CurrentSelectedTiles = tiles;
+         HighlightTiles();
+      }
+      else
+      {
+         return tiles;
+      }
+      return null;
    }
-   private void BishopRule(Vector3 position)
+   private List<Tile> BishopRule(Vector3 position, bool IsPlayerMove = true)
    {
       var tiles = new List<Tile>();
       
@@ -311,11 +393,19 @@ public class BoardManager : MonoBehaviour
          }
       }
 
-      PreviousSelectedTiles = CurrentSelectedTiles;
-      CurrentSelectedTiles = tiles;
-      HighlightTiles();
+      if (IsPlayerMove)
+      {
+         PreviousSelectedTiles = CurrentSelectedTiles;
+         CurrentSelectedTiles = tiles;
+         HighlightTiles();
+      }
+      else
+      {
+         return tiles;
+      }
+      return null;
    }
-   private void QueenRule(Vector3 position)
+   private List<Tile> QueenRule(Vector3 position, bool IsPlayerMove = true)
    {
       
       var tiles = new List<Tile>();
@@ -432,17 +522,42 @@ public class BoardManager : MonoBehaviour
           }
       }
 
-      PreviousSelectedTiles = CurrentSelectedTiles;
-      CurrentSelectedTiles = tiles;
-      HighlightTiles();
+      if (IsPlayerMove)
+      {
+         PreviousSelectedTiles = CurrentSelectedTiles;
+         CurrentSelectedTiles = tiles;
+         HighlightTiles();
+      }
+      else
+      {
+         return tiles;
+      }
+      return null;
    }
-   
-
-   private void PawnRule(Piece piece)
+   private List<Tile> PawnRule(Vector3 position, bool IsPlayerMove = true)
    {
+      var tiles = new List<Tile>();
       
+      var x = (int)position.x;
+      var y = (int)position.z;
+      
+      var possibleMoves = new List<(int, int)>
+      {
+         (x, y - 1)
+      };
+      
+      foreach (var key in possibleMoves.Select(move => new Vector3(move.Item1, 0, move.Item2)))
+      {
+         if (m_AllTiles.ContainsKey(key))
+         {
+            tiles.Add(m_AllTiles[key]);
+         }
+      }
+
+      return tiles;
    }
 
+   #endregion
 
 
    private void HighlightTiles()

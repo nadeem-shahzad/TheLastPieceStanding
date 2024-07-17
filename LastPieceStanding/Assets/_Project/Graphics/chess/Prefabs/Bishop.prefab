@@ -49,6 +49,8 @@ MonoBehaviour:
   m_PieceName: 3
   m_PieceType: 0
   m_Render: {fileID: 21300000, guid: 123f5c058f3f64661b6c3a2f308c5605, type: 3}
+  m_LineRenderer: {fileID: 7813066493103323177, guid: 5d6b2da6709084596957b70aaf0a06d8,
+    type: 3}
 --- !u!1001 &3808573225254987720
 PrefabInstance:
   m_ObjectHideFlags: 0

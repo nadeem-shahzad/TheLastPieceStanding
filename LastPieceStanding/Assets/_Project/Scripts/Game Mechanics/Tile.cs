@@ -26,8 +26,15 @@ public class Tile : MonoBehaviour
    {
        m_IsEmpty = isEmpty;
 
-       if (m_CurrentPiece!= null && m_CurrentPiece.IsPlayerPiece  is  false)
+       if (m_CurrentPiece != null && m_CurrentPiece.IsPlayerPiece is false)
+       {
+           GameManager.Instance.m_PieceCounter--;
+           
+           if (GameManager.Instance.m_PieceCounter <= 0)
+               UIViewManager.Show<WinPanelView>();
+
            Destroy(m_CurrentPiece.gameObject);
+       }
 
        m_CurrentPiece = piece;
    }
@@ -42,11 +49,9 @@ public class Tile : MonoBehaviour
    {
        BoardManager.Instance.GetTile(BoardManager.Instance.Player.Position).SetPieceHere(null,true);
        BoardManager.Instance.MovePlayer(this);
-       Debug.LogError($"Tile Down :: {this.name}",gameObject);
    }
    
    private void OnMouseUp()
    {
-       Debug.LogError($"Tile Up :: {this.name}",gameObject);
    }
 }

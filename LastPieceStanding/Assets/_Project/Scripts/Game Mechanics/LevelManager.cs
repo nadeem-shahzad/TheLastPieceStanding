@@ -30,6 +30,8 @@ public class LevelManager : MonoBehaviour
         var hashTableKing = iTween.Hash("position", data.playerPosition, "time", 0.25f, "delay", delay, "easetype", iTween.EaseType.easeOutBack);
         iTween.MoveFrom(kingPiece.gameObject,hashTableKing);
         delay += 0.15f;
+
+        GameManager.Instance.m_PieceCounter = data.enemyPieces.Count;
         
         if (data.enemyPieces.Count > 0)
         {
