@@ -49,8 +49,10 @@ MonoBehaviour:
   m_PieceName: 1
   m_PieceType: 0
   m_Render: {fileID: 21300000, guid: 6380ba67ee745444098a1dbb1d016607, type: 3}
-  m_LineRenderer: {fileID: 7813066493103323177, guid: 5d6b2da6709084596957b70aaf0a06d8,
+  m_LineRendererPrefab: {fileID: 7813066493103323177, guid: 5d6b2da6709084596957b70aaf0a06d8,
     type: 3}
+  m_NextTile: {fileID: 0}
+  m_PreviousTile: {fileID: 0}
 --- !u!1001 &5030996673112713187
 PrefabInstance:
   m_ObjectHideFlags: 0

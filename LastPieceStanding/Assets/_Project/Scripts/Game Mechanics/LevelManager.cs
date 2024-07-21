@@ -9,10 +9,15 @@ public class LevelManager : MonoBehaviour
     public Material m_BlackMat;
     public Material m_WhiteMat;
     
-    public int Level = 0;
+    public static int Level = 8;
 
+    private List<Piece> m_AllEnemyPieces;
+
+    public static LevelManager Instance;
+    
     private void Start()
     {
+        Instance = this;
     }
 
     public void InitializeLevel()
@@ -30,7 +35,7 @@ public class LevelManager : MonoBehaviour
         var hashTableKing = iTween.Hash("position", data.playerPosition, "time", 0.25f, "delay", delay, "easetype", iTween.EaseType.easeOutBack);
         iTween.MoveFrom(kingPiece.gameObject,hashTableKing);
         delay += 0.15f;
-
+        m_AllEnemyPieces = new List<Piece>();
         GameManager.Instance.m_PieceCounter = data.enemyPieces.Count;
         
         if (data.enemyPieces.Count > 0)
@@ -39,6 +44,7 @@ public class LevelManager : MonoBehaviour
             {
                 var enemy = PiecesManager.Instance.GetPiece(enemyData.pieceName);
                 var enemyPiece = Instantiate(enemy, transform);
+                m_AllEnemyPieces.Add(enemyPiece);
                 enemyPiece.Init(ePieceType.Black, m_BlackMat);
                 enemyPiece.transform.position = enemyData.piecePosition;
                 enemyData.piecePosition.y = 1.5f;
@@ -58,6 +64,22 @@ public class LevelManager : MonoBehaviour
         
     }
 
+
+    public void RemoveEnemyPiece(Piece piece)
+    {
+        if (piece != null && m_AllEnemyPieces.Contains(piece))
+            m_AllEnemyPieces.Remove(piece);
+    }
+
+    public void MoveAllEnemyPieces()
+    {
+        foreach (var enemyPiece in m_AllEnemyPieces)
+        {
+           enemyPiece.MoveEnemyPiece(); 
+        }
+    }
+    
+    
 
     private LevelData LoadLevelFromResources()
     {

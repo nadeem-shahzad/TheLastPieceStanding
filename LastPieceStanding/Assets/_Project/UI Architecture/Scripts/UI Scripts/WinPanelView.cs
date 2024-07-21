@@ -9,6 +9,7 @@ public class WinPanelView : UIView
     [SerializeField] private Button m_RestartButton;
     public override void Initialize()
     {
+        
         m_RestartButton.onClick.AddListener(() => OnRestart());
     }
 
@@ -18,14 +19,13 @@ public class WinPanelView : UIView
     {
         SoundManager.instance.PlaySound(SoundManager.SoundType.StageComplete);
         this.Show();
-        Time.timeScale = 0f;
     }
 
 
     public void OnRestart()
     {
-        SoundManager.instance.PlaySound(SoundManager.SoundType.Click);
-
+        // SoundManager.instance.PlaySound(SoundManager.SoundType.Click);
+        LevelManager.Level++;
         SceneManager.LoadScene("Gameplay");
     }
 }

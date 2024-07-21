@@ -9,4 +9,7 @@ public class UIEvents
     public static Action<bool> m_MusicToggleUpdate;
     public static Action<bool> m_SoundToggleUpdate;
     public static Action<bool> m_HepticsToggleUpdate;
+
+
+    public static Action a_DeleteSelectedCard;
 }

@@ -8,10 +8,13 @@ public class Piece : MonoBehaviour
     [SerializeField] private ePieceName m_PieceName;
     [SerializeField] private ePieceType m_PieceType;
     [SerializeField] private Sprite m_Render;
-    [SerializeField] private EnemyLineToMove m_LineRenderer;
+    [SerializeField] private EnemyLineToMove m_LineRendererPrefab;
     [SerializeField] private Tile m_NextTile;
     [SerializeField] private Tile m_PreviousTile;
     
+    
+    private EnemyLineToMove m_LineRenderer;
+
     private MeshRenderer[] m_AllRenderers;
     public ePieceName PieceName
     {
@@ -27,7 +30,12 @@ public class Piece : MonoBehaviour
     // set => throw new NotImplementedException();
     public Vector3 Position
     {
-        get => transform.position;
+        get
+        {
+            var x = (int)transform.position.x;
+            var z = (int)transform.position.z;
+            return new Vector3(x,0,z);
+        }
         set => transform.position = value;
     }
 
@@ -54,7 +62,7 @@ public class Piece : MonoBehaviour
         Invoke(nameof(MovePieceToTile),2f);
     }
 
-    public void MovePieceToTile()
+    private void MovePieceToTile()
     {
         if (m_NextTile == null)
         {
@@ -63,16 +71,26 @@ public class Piece : MonoBehaviour
         }
         else
         {
-            
+            m_PreviousTile = m_NextTile;
         }
         
         
         if (IsPlayerPiece is false)
         {
-            SpawnLineRenderer();
+            if (m_LineRenderer == null)
+                SpawnLineRenderer();
+
             m_NextTile = BoardManager.Instance.GetTilesToMoveOnForEnemy(this);
-            var coordinates = CalculateCoordinates();
-            m_LineRenderer.UpdateLineCoordinates(coordinates.zLength,coordinates.yRotation);
+            if (m_NextTile!= null)
+            {
+                var coordinates = CalculateCoordinates();
+                m_LineRenderer.UpdateLineCoordinates(coordinates.zLength,coordinates.yRotation);
+            }
+            else
+            {
+                m_LineRenderer.gameObject.SetActive(false);
+            }
+          
         }
     }
 
@@ -101,21 +119,35 @@ public class Piece : MonoBehaviour
     
     private void SpawnLineRenderer()
     {
-        m_LineRenderer = Instantiate(m_LineRenderer, transform);
+        m_LineRenderer = Instantiate(m_LineRendererPrefab, transform);
     }
 
 
-    private void MoveEnemyPiece()
+    public void MoveEnemyPiece()
     {
         var tile = m_NextTile;
         
         var hashTable = iTween.Hash("position", tile.Position, "speed", 2.5f, "easetype", iTween.EaseType.easeInOutCubic, 
             "oncompletetarget",gameObject, "oncomplete","OnCompleteMove");
         iTween.MoveTo(gameObject, hashTable);
+        m_NextTile.SetPieceHere(this);
+
+       Invoke(nameof(CheckLoseCondition),0.25f);
+    }
+
+    private void CheckLoseCondition()
+    {
+        if (m_NextTile.Position.z == 0)
+        {
+            GameManager.Instance.IsGameEnded = true;
+            UIViewManager.Show<GameOverPanelView>();
+        }
     }
     
-    private void OnCompleteMove(Tile tile)
+    private void OnCompleteMove()
     {
+        m_PreviousTile.SetPieceHere(null,true);
+        MovePieceToTile();
         // KingRule(m_Player.Position);
     }
     

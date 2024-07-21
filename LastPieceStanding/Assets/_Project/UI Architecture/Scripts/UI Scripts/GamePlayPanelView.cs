@@ -13,11 +13,15 @@ public class GamePlayPanelView : UIView
     [SerializeField] private Text m_CurrencyText;
     [SerializeField] private PieceCard m_CardPrefab;
     [SerializeField] private Transform m_CardPrefabParent;
+
+    public PieceCard SelectedCard { get; set; } = null;
+
     public override void Initialize()
     {
         m_pauseButton.onClick.AddListener(OnPauseClick);
         UIEvents.m_gameplayScoreUpdate += ScoreUpdate;
         UIEvents.m_gameplayCurrencyUpdate += CurrencyUpdate;
+        UIEvents.a_DeleteSelectedCard += DeleteSelectedCard;
     }
 
     private void CurrencyUpdate(int currency)
@@ -42,8 +46,16 @@ public class GamePlayPanelView : UIView
         foreach (var piece in pieces)
         {
             var card = Instantiate(m_CardPrefab, m_CardPrefabParent);
-            card.Init(piece.PieceImage, piece.PieceName);
+            card.Init(piece.PieceImage, piece.PieceName, this);
         }
+    }
+
+    private void DeleteSelectedCard()
+    {
+        if (!SelectedCard)
+            return;
+        
+        Destroy(SelectedCard.gameObject);
     }
     
 
@@ -51,5 +63,6 @@ public class GamePlayPanelView : UIView
     {
         UIEvents.m_gameplayScoreUpdate -= ScoreUpdate;
         UIEvents.m_gameplayCurrencyUpdate -= CurrencyUpdate;
+        UIEvents.a_DeleteSelectedCard -= DeleteSelectedCard;
     }
 }

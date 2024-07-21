@@ -17,13 +17,13 @@ public class GameOverPanelView : UIView
     {
         SoundManager.instance.PlaySound(SoundManager.SoundType.Loose);
         this.Show();
-        Time.timeScale = 0f;
+        // Time.timeScale = 0f;
     }
 
 
     public void OnRestart()
     {
-        SoundManager.instance.PlaySound(SoundManager.SoundType.Click);
+        // SoundManager.instance.PlaySound(SoundManager.SoundType.Click);
         SceneManager.LoadScene("Gameplay");
     }
 }

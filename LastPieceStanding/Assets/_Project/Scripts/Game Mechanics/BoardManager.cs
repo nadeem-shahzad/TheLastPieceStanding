@@ -140,6 +140,9 @@ public class BoardManager : MonoBehaviour
             break;
       }
 
+      if (allTiles == null || allTiles.Count <= 0)
+         return null;
+
       Tile FarthestTile = allTiles[0];
       
       float minDistance = Mathf.Abs(allTiles[0].Position.z);
@@ -579,6 +582,8 @@ public class BoardManager : MonoBehaviour
    public void MovePlayer(Tile tile)
    {
       if (!CurrentSelectedTiles.Contains(tile)) return;
+
+      UIEvents.a_DeleteSelectedCard?.Invoke();
       
       var hashTable = iTween.Hash("position", tile.Position, "speed", m_PlayerMoveSpeed, "easetype", iTween.EaseType.easeInOutCubic, 
          "oncompletetarget",gameObject, "oncomplete","OnCompletePlayerMove","oncompleteparams",tile);
@@ -589,6 +594,7 @@ public class BoardManager : MonoBehaviour
    private void OnCompletePlayerMove(Tile tile)
    {
       KingRule(m_Player.Position);
+      LevelManager.Instance.MoveAllEnemyPieces();
       tile.SetPieceHere(m_Player);
    }
    

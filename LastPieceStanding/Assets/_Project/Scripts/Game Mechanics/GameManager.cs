@@ -11,8 +11,17 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
 
 
+    public bool IsGameEnded { get; set; } = true;
+
     private void Start()
     {
         Instance = this;
+        Invoke(nameof(StartGame),2f);
+    }
+
+
+    private void StartGame()
+    {
+        IsGameEnded = false;
     }
 }
