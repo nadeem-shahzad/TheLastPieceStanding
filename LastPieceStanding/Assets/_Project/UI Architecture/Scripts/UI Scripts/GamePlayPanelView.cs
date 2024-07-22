@@ -8,17 +8,24 @@ using UnityEngine.UI;
 public class GamePlayPanelView : UIView
 {
 
-    [SerializeField] private Button m_pauseButton;
+    [SerializeField] private Button m_SettingsButton;
     [SerializeField] private Text m_ScoreText;
     [SerializeField] private Text m_CurrencyText;
     [SerializeField] private PieceCard m_CardPrefab;
     [SerializeField] private Transform m_CardPrefabParent;
+    [SerializeField] private Button m_ShopButton;
+    [SerializeField] private Button m_FreeCoinsButton;
+    [SerializeField] private Button m_RemoveAds;
+    
 
     public PieceCard SelectedCard { get; set; } = null;
 
     public override void Initialize()
     {
-        m_pauseButton.onClick.AddListener(OnPauseClick);
+        m_SettingsButton.onClick.AddListener(OnSettingsClick);
+        m_ShopButton.onClick.AddListener(OnShopClick);
+        m_FreeCoinsButton.onClick.AddListener(OnFreeCoinsClick);
+        m_RemoveAds.onClick.AddListener(OnRemoveAdsClick);
         UIEvents.m_gameplayScoreUpdate += ScoreUpdate;
         UIEvents.m_gameplayCurrencyUpdate += CurrencyUpdate;
         UIEvents.a_DeleteSelectedCard += DeleteSelectedCard;
@@ -34,10 +41,24 @@ public class GamePlayPanelView : UIView
         m_ScoreText.text = scoreValue.ToString();
     }
 
-    private void OnPauseClick()
+    private void OnSettingsClick()
     {
         // UIViewManager.Show<PausePanelView>();
         // Time.timeScale = 0f;
+    }
+
+    private void OnShopClick()
+    {
+        UIViewManager.Show<CoinShopView>();
+    }
+    
+    private void OnFreeCoinsClick()
+    {
+        
+    }
+    private void OnRemoveAdsClick()
+    {
+        
     }
 
 

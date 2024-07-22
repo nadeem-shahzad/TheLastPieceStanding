@@ -12,4 +12,5 @@ public class UIEvents
 
 
     public static Action a_DeleteSelectedCard;
+    public static Action<int> a_UpdateCoins;
 }
