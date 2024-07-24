@@ -140,7 +140,7 @@ public class Piece : MonoBehaviour
         if (m_NextTile.Position.z == 0)
         {
             GameManager.Instance.IsGameEnded = true;
-            UIViewManager.Show<GameOverPanelView>();
+           UIEvents.a_OnGameLose?.Invoke();
         }
     }
     

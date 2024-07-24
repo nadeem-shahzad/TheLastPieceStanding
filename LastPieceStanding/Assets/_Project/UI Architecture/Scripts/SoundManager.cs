@@ -1,51 +1,25 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
-public class SoundManager : MonoBehaviour
+public class SoundManager : Singleton<SoundManager>
 {
-    public static SoundManager instance;
 
     public enum SoundType
     {
-        Click, Background, UnderControl, StageComplete, Loose, Bullet, LooseControl
+        Click, LevelUp, LevelLose, Move, Capture
     }
 
-    [SerializeField] private AudioClip click, background, underControl, stageComplete, loose, bullet, looseControl;
-    [SerializeField] private AudioSource backgroundAS;
+    [SerializeField] private AudioClip click, levelUp, levelLose, move, capture;
     [SerializeField] private AudioSource audioSource;
 
 
 
 
-    public bool isMusicOn { get; set; }
-
-
-    private void Awake()
-    {
-        instance = this;
-    }
-
-    private void Start()
-    {
-        PlayBackGroundSound(DataManager.Instance.IsSoundOn);
-    }
-
-
-    public void PlayBackGroundSound(bool isOn)
-    {
-        if (isOn == true)
-        {
-            backgroundAS.Play();
-        }
-        else
-        {
-            backgroundAS.Stop();
-        }
-    }
-
-
+    
+    
     public void PlaySound(SoundType soundType)
     {
-        if (DataManager.Instance.IsMusicOn)
+        if (DataManager.Instance.IsSoundOn)
         {
             AudioClip audioClip = GetAudioClip(soundType);
             if (this.audioSource.isPlaying)
@@ -65,7 +39,6 @@ public class SoundManager : MonoBehaviour
     }
 
 
-
     AudioSource GetAudioSource()
     {
         GameObject audioSourceGameObject = new GameObject();
@@ -81,18 +54,14 @@ public class SoundManager : MonoBehaviour
         {
             case SoundType.Click:
                 return click;
-            case SoundType.Bullet:
-                return bullet;
-            case SoundType.StageComplete:
-                return stageComplete;
-            case SoundType.UnderControl:
-                return underControl;
-            case SoundType.Background:
-                return background;
-            case SoundType.Loose:
-                return loose;
-            case SoundType.LooseControl:
-                return looseControl;
+            case SoundType.LevelUp:
+                return levelUp;
+            case SoundType.LevelLose:
+                return levelLose;
+            case SoundType.Move:
+                return move;
+            case SoundType.Capture:
+                return capture;
             default:
                 return null;
         }

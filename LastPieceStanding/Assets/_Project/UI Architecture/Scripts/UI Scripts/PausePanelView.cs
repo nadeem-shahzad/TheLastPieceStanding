@@ -23,12 +23,11 @@ public class PausePanelView : UIView
     private void OnResumeClick()
     {
         UIViewManager.ShowLast();
-        Time.timeScale = 1f;
     }
 
     private void OnSettingClick()
     {
-        UIViewManager.Show<SettingPanelView>();
+        UIViewManager.ShowPopUp<SettingPanelView>();
     }
 
     private void OnLeaveClick()

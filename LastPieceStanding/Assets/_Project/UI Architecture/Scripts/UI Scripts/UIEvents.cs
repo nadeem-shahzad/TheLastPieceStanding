@@ -11,6 +11,10 @@ public class UIEvents
     public static Action<bool> m_HepticsToggleUpdate;
 
 
+    public static Action a_OnGameWin;
+    public static Action a_OnGameLose;
+
+
     public static Action a_DeleteSelectedCard;
     public static Action<int> a_UpdateCoins;
 }

@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         Instance = this;
-        Invoke(nameof(StartGame),2f);
+        Invoke(nameof(StartGame),3f);
     }
 
 
@@ -24,4 +24,6 @@ public class GameManager : MonoBehaviour
     {
         IsGameEnded = false;
     }
+    
+    
 }

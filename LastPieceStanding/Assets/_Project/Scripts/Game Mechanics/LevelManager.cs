@@ -8,6 +8,10 @@ public class LevelManager : MonoBehaviour
 {
     public Material m_BlackMat;
     public Material m_WhiteMat;
+
+    [SerializeField] private Material[] m_AllBlack; 
+    [SerializeField] private Material[] m_AllWhite; 
+    
     
     public static int Level = 8;
 
@@ -24,10 +28,14 @@ public class LevelManager : MonoBehaviour
     {
         var data = LoadLevelFromResources();
         float delay = 0f;
+        var matIndex = PlayerPrefs.GetInt(Constants.EquippedPiece, 0);
+        var whiteMat = m_AllWhite[matIndex];
+        var blackMat = m_AllBlack[matIndex];
+        
         // Create Player Piece
         var king = PiecesManager.Instance.GetPiece(ePieceName.King);
         var kingPiece = Instantiate(king, transform);
-        kingPiece.Init(ePieceType.White, m_WhiteMat);
+        kingPiece.Init(ePieceType.White, whiteMat);
         kingPiece.transform.position = data.playerPosition;
         data.playerPosition.y = 1.5f;
         kingPiece.name = ePieceName.King.ToString();
@@ -45,7 +53,7 @@ public class LevelManager : MonoBehaviour
                 var enemy = PiecesManager.Instance.GetPiece(enemyData.pieceName);
                 var enemyPiece = Instantiate(enemy, transform);
                 m_AllEnemyPieces.Add(enemyPiece);
-                enemyPiece.Init(ePieceType.Black, m_BlackMat);
+                enemyPiece.Init(ePieceType.Black, blackMat);
                 enemyPiece.transform.position = enemyData.piecePosition;
                 enemyData.piecePosition.y = 1.5f;
                 enemyPiece.name = enemyData.pieceName.ToString();

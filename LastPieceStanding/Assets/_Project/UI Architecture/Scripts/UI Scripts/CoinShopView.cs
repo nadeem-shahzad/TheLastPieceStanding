@@ -16,7 +16,13 @@ public class CoinShopView : UIView
         UIEvents.a_UpdateCoins += UpdateCoins;
     }
 
-    public void BuyItem(eShopItem itemType)
+    public void BuyIAP(int id)
+    {
+        SoundManager.Instance.PlaySound(SoundManager.SoundType.Click);
+        BuyItem((eShopItem)id);
+    }
+    
+    private void BuyItem(eShopItem itemType)
     {
         switch (itemType)
         {
@@ -60,9 +66,10 @@ public class CoinShopView : UIView
 
     private void BackButtonClick()
     {
+        SoundManager.Instance.PlaySound(SoundManager.SoundType.Click);
         UIViewManager.ShowLast();
     }
-
+    
     private void OnDestroy()
     {
         UIEvents.a_UpdateCoins -= UpdateCoins;
@@ -71,5 +78,10 @@ public class CoinShopView : UIView
 
 public enum eShopItem
 {
-    RemoveAds, FreeCoins, Coins1000, Coins3050, Coins7000, Coins15000 
+    RemoveAds = 0,
+    FreeCoins = 5,
+    Coins1000 = 1,
+    Coins3050 = 2,
+    Coins7000 = 3,
+    Coins15000 = 4
 }

@@ -14,9 +14,8 @@ public class DataManager
 
     private DataManager()
     {
-        UIEvents.m_MusicToggleUpdate?.Invoke(IsMusicOn);
         UIEvents.m_SoundToggleUpdate?.Invoke(IsSoundOn);
-        UIEvents.m_HepticsToggleUpdate?.Invoke(IsHepticsOn);
+        UIEvents.m_HepticsToggleUpdate?.Invoke(IsHapticsOn);
         UIEvents.m_gameplayCurrencyUpdate?.Invoke(Currency);
         UIEvents.m_gameplayScoreUpdate?.Invoke(Score);
     }
@@ -68,39 +67,21 @@ public class DataManager
         }
     }
 
-    public bool IsMusicOn
-    {
-        get
-        {
-            return System.Convert.ToBoolean(PlayerPrefs.GetInt("IsMusicOn", 1));
-        }
-        set
-        {
-            PlayerPrefs.SetInt("IsMusicOn", System.Convert.ToInt32(value));
-            PlayerPrefs.Save();
-        }
-    }
     public bool IsSoundOn
     {
-        get
-        {
-            return System.Convert.ToBoolean(PlayerPrefs.GetInt("IsSoundOn", 1));
-        }
+        get => PlayerPrefs.GetInt(Constants.SoundKey, 1) == 1;
         set
         {
-            PlayerPrefs.SetInt("IsSoundOn", System.Convert.ToInt32(value));
+            PlayerPrefs.SetInt(Constants.SoundKey, value ? 1 : 0);
             PlayerPrefs.Save();
         }
     }
-    public bool IsHepticsOn
+    public bool IsHapticsOn
     {
-        get
-        {
-            return System.Convert.ToBoolean(PlayerPrefs.GetInt("IsHepticsOn", 1));
-        }
+        get => PlayerPrefs.GetInt(Constants.HapticsKey, 1) == 1;
         set
         {
-            PlayerPrefs.SetInt("IsHepticsOn", System.Convert.ToInt32(value));
+            PlayerPrefs.SetInt(Constants.HapticsKey, value ? 1 : 0);
             PlayerPrefs.Save();
         }
     }

@@ -1,28 +1,28 @@
 ﻿using System;
+using _Project.UI_Architecture.Scripts.UI_Scripts;
 using UnityEngine;
 [RequireComponent(typeof(CanvasGroup))]
-public abstract class UIView : MonoBehaviour
+public abstract class UIView : Views
 {
     private CanvasGroup _canvasGroup;
-    public abstract void Initialize();
-
-    public virtual void InitializeRequiredComponents()
+    
+    public void InitializeRequiredComponents()
     {
         if (_canvasGroup == null)
             _canvasGroup = GetComponent<CanvasGroup>();
     }
     
-    public virtual void HideWithoutAnimation()
+    public override void HideWithoutAnimation()
     {
         gameObject.SetActive(false);
     }
-    public virtual void Hide()
+    public override void Hide()
     {
         _canvasGroup.alpha = 1;
         ChangeAlphaValue(1, 0);
     }
 
-    public virtual void Show()
+    public override void Show()
     {
         _canvasGroup.alpha = 0;
         gameObject.SetActive(true);

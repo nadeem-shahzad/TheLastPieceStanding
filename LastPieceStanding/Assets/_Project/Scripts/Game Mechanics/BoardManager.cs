@@ -13,6 +13,8 @@ public class BoardManager : MonoBehaviour
    [SerializeField] private UnityEvent m_OnCreatBoard;
    [SerializeField] private Piece m_Player;
    [SerializeField] private float m_PlayerMoveSpeed = 1f;
+   [SerializeField] private Material[] m_AllBlack;
+   [SerializeField] private Material[] m_AllWhite;
    private Dictionary<Vector3, Tile> m_AllTiles;
 
    private List<Tile> PreviousSelectedTiles;
@@ -71,7 +73,12 @@ public class BoardManager : MonoBehaviour
 
             position.y = 1f;
             newTile.name = $"{xPos} {zPos}";
-            newTile.SetColor((x + z) % 2 == 0);
+            var isBlack = (x + z) % 2 == 0;
+            int matIndex = PlayerPrefs.GetInt(Constants.EquippedBoard, 0);
+            var whiteMat = m_AllWhite[matIndex];
+            var blackMat = m_AllBlack[matIndex];
+            
+            newTile.SetColor(isBlack ? blackMat : whiteMat);
 
             var hashTable = iTween.Hash("scale", Vector3.zero, "time", 0.25f, "delay", delay, "easetype", iTween.EaseType.easeOutBack);
             iTween.ScaleFrom(newTile.gameObject,hashTable);
@@ -584,8 +591,8 @@ public class BoardManager : MonoBehaviour
       if (!CurrentSelectedTiles.Contains(tile)) return;
 
       UIEvents.a_DeleteSelectedCard?.Invoke();
-      
-      var hashTable = iTween.Hash("position", tile.Position, "speed", m_PlayerMoveSpeed, "easetype", iTween.EaseType.easeInOutCubic, 
+      SoundManager.Instance.PlaySound(SoundManager.SoundType.Move);
+      var hashTable = iTween.Hash("position", tile.Position, "speed", m_PlayerMoveSpeed, "easetype", iTween.EaseType.linear, 
          "oncompletetarget",gameObject, "oncomplete","OnCompletePlayerMove","oncompleteparams",tile);
       iTween.MoveTo(m_Player.gameObject,hashTable);
    }

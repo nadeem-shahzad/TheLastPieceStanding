@@ -24,6 +24,7 @@ public class PieceCard : MonoBehaviour
 
     private void OnCardClicked()
     {
+        SoundManager.Instance.PlaySound(SoundManager.SoundType.Click);
         if ((m_Controller.SelectedCard != null && m_Controller.SelectedCard != this) || m_Controller.SelectedCard == null) 
         {
             if (m_Controller.SelectedCard != null)

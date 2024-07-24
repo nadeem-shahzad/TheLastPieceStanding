@@ -16,6 +16,7 @@ public class GamePlayPanelView : UIView
     [SerializeField] private Button m_ShopButton;
     [SerializeField] private Button m_FreeCoinsButton;
     [SerializeField] private Button m_RemoveAds;
+    [SerializeField] private Button m_CollectionButton;
     
 
     public PieceCard SelectedCard { get; set; } = null;
@@ -26,9 +27,16 @@ public class GamePlayPanelView : UIView
         m_ShopButton.onClick.AddListener(OnShopClick);
         m_FreeCoinsButton.onClick.AddListener(OnFreeCoinsClick);
         m_RemoveAds.onClick.AddListener(OnRemoveAdsClick);
+        m_CollectionButton.onClick.AddListener(OnCollectionClick);
         UIEvents.m_gameplayScoreUpdate += ScoreUpdate;
-        UIEvents.m_gameplayCurrencyUpdate += CurrencyUpdate;
+        UIEvents.a_UpdateCoins += CurrencyUpdate;
         UIEvents.a_DeleteSelectedCard += DeleteSelectedCard;
+    }
+
+    private void OnCollectionClick()
+    {
+        SoundManager.Instance.PlaySound(SoundManager.SoundType.Click);
+        UIViewManager.Show<ChessShopView>();
     }
 
     private void CurrencyUpdate(int currency)
@@ -43,22 +51,25 @@ public class GamePlayPanelView : UIView
 
     private void OnSettingsClick()
     {
-        // UIViewManager.Show<PausePanelView>();
-        // Time.timeScale = 0f;
+        SoundManager.Instance.PlaySound(SoundManager.SoundType.Click);
+        UIViewManager.ShowPopUp<SettingPanelView>();
     }
 
     private void OnShopClick()
     {
+        SoundManager.Instance.PlaySound(SoundManager.SoundType.Click);
         UIViewManager.Show<CoinShopView>();
     }
     
     private void OnFreeCoinsClick()
     {
-        
+        SoundManager.Instance.PlaySound(SoundManager.SoundType.Click);
+        UIViewManager.ShowPopUp<FreeCoinsView>();
     }
     private void OnRemoveAdsClick()
     {
-        
+        SoundManager.Instance.PlaySound(SoundManager.SoundType.Click);
+        UIViewManager.ShowPopUp<RemoveAdsView>();
     }
 
 
@@ -79,11 +90,14 @@ public class GamePlayPanelView : UIView
         Destroy(SelectedCard.gameObject);
     }
     
+    
+    
 
     private void OnDestroy()
     {
         UIEvents.m_gameplayScoreUpdate -= ScoreUpdate;
         UIEvents.m_gameplayCurrencyUpdate -= CurrencyUpdate;
         UIEvents.a_DeleteSelectedCard -= DeleteSelectedCard;
+        UIEvents.a_UpdateCoins -= CurrencyUpdate;
     }
 }

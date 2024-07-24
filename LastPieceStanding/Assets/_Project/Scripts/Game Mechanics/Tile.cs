@@ -15,9 +15,9 @@ public class Tile : MonoBehaviour
    public Vector3 Position => transform.position;
    public bool IsEmpty => m_IsEmpty;
 
-   public void SetColor(bool isBlack)
+   public void SetColor(Material material)
    {
-       m_Renderer.sharedMaterial = isBlack ? m_Black : m_White;
+       m_Renderer.sharedMaterial = material;
        m_Dot.gameObject.SetActive(false);
    }
 
@@ -43,6 +43,7 @@ public class Tile : MonoBehaviour
        
        if (piece == null)
        {
+           m_CurrentPiece = null;
            return;
        }
        
@@ -51,16 +52,12 @@ public class Tile : MonoBehaviour
        {
            GameManager.Instance.m_PieceCounter--;
            LevelManager.Instance.RemoveEnemyPiece(m_CurrentPiece);
-
+           SoundManager.Instance.PlaySound(SoundManager.SoundType.Capture);
            if (GameManager.Instance.m_PieceCounter <= 0)
            {
                GameManager.Instance.IsGameEnded = true;
-               UIViewManager.Show<WinPanelView>();
+               UIEvents.a_OnGameWin?.Invoke();
            } 
-           
-           
-           
-
            Destroy(m_CurrentPiece.gameObject);
        }
 

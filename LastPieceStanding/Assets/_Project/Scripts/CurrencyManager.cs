@@ -6,14 +6,14 @@ public class CurrencyManager : Singleton<CurrencyManager>
 {
     private int m_Coins;
 
-    private int Coins
+    public int Coins
     {
         get => PlayerPrefs.GetInt(Constants.CoinsKey,50);
         set
         {
             PlayerPrefs.SetInt(Constants.CoinsKey, value);
             PlayerPrefs.Save();
-            UIEvents.a_UpdateCoins?.Invoke(m_Coins);
+            UIEvents.a_UpdateCoins?.Invoke(Coins);
         }
     }
 
