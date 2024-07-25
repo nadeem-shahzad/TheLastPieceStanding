@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -9,7 +10,9 @@ using Random = UnityEngine.Random;
 public class GameOverPanelView : UIView
 {
     [SerializeField] private Button m_RestartButton;
+    [SerializeField] private Button m_WatchAdButton;
     [SerializeField] private Transform m_Emojies;
+    [SerializeField] private TMP_Text m_CoinsText;
     
     [Header("Animation Related Things")] 
     [SerializeField] private GameObject m_UpperBar;
@@ -17,6 +20,7 @@ public class GameOverPanelView : UIView
     public override void Initialize()
     {
         m_RestartButton.onClick.AddListener(OnRestart);
+        m_WatchAdButton.onClick.AddListener(OnDoubleClick);
         UIEvents.a_OnGameLose = null;
         UIEvents.a_OnGameLose += OnLoose;
     }
@@ -24,6 +28,7 @@ public class GameOverPanelView : UIView
     private void OnLoose()
     {
         SoundManager.Instance.PlaySound(SoundManager.SoundType.LevelLose);
+        m_CoinsText.text = $"Coins {Constants.LevelWinPrice / 2}";
         ShowEmoji();
         UIViewManager.Show(this,true);
         // PanelAnimations();
@@ -40,11 +45,29 @@ public class GameOverPanelView : UIView
         m_Emojies.GetChild(index).gameObject.SetActive(true);
     }
 
-    public void OnRestart()
+    private void OnRestart()
     {
-        // SoundManager.instance.PlaySound(SoundManager.SoundType.Click);
+        SoundManager.Instance.PlaySound(SoundManager.SoundType.Click);
+        CurrencyManager.Instance.AddCoins(Constants.LevelWinPrice/2);
+        
+        if (LevelManager.Instance.Level >= 5)
+            GoogleAdmobController.s_Instance.ShowAdInterstitial();
+        
         SceneManager.LoadScene("Gameplay");
     }
+
+    private void OnDoubleClick()
+    {
+        SoundManager.Instance.PlaySound(SoundManager.SoundType.Click);
+        GoogleAdmobController.s_Instance.ShowAdRewardedAd(OnVideoAddCompleted);
+    }
+
+    private void OnVideoAddCompleted()
+    {
+        CurrencyManager.Instance.AddCoins(Constants.LevelWinPrice);
+        SceneManager.LoadScene("Gameplay");
+    }
+    
     private void PanelAnimations()
     {
         var uperHashtable = iTween.Hash("y", 1500, "time", 0.5f, "easetype", iTween.EaseType.linear,"islocal",true);

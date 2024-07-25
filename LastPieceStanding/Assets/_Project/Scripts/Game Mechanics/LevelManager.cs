@@ -10,10 +10,18 @@ public class LevelManager : MonoBehaviour
     public Material m_WhiteMat;
 
     [SerializeField] private Material[] m_AllBlack; 
-    [SerializeField] private Material[] m_AllWhite; 
-    
-    
-    public static int Level = 8;
+    [SerializeField] private Material[] m_AllWhite;
+
+
+    public int Level
+    {
+        get => PlayerPrefs.GetInt(Constants.LevelsKey, 0);
+        set
+        {
+            PlayerPrefs.SetInt(Constants.LevelsKey, value);
+            PlayerPrefs.Save();
+        }
+    }
 
     private List<Piece> m_AllEnemyPieces;
 

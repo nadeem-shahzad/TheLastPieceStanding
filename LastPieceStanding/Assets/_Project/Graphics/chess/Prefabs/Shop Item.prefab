@@ -93,7 +93,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 30
+  m_fontSize: 18
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -201,6 +201,7 @@ MonoBehaviour:
   m_TitleText: {fileID: 8988275276757921587}
   m_LockIcon: {fileID: 7849436139955983804}
   m_ItemButton: {fileID: 1682806617805094097}
+  m_Index: 0
 --- !u!114 &2861153128049015045
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -384,8 +385,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 44}
-  m_SizeDelta: {x: 164, y: 164}
+  m_AnchoredPosition: {x: 0, y: 36}
+  m_SizeDelta: {x: 207.9856, y: 207.9856}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &1053899601439969722
 CanvasRenderer:

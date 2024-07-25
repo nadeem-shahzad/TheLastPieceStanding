@@ -13,6 +13,7 @@ public class ChessShopView : UIView
     [SerializeField] private Transform m_PiecesParent;
     [SerializeField] private Transform m_BoardsParent;
     [SerializeField] private ShopItem m_ShopItemPrefab;
+    [SerializeField] private Text m_CurrencyText;
 
 
     [Header("Boards")] 
@@ -25,12 +26,14 @@ public class ChessShopView : UIView
     {
         m_BackButton.onClick.AddListener(() =>
         {
+            GameManager.Instance.IsGameEnded = false;
             SoundManager.Instance.PlaySound(SoundManager.SoundType.Click);
             SceneManager.LoadScene("Gameplay");
         });
         
         m_PiecesButton.onClick.AddListener(OnPiecesClick);
         m_BoardButton.onClick.AddListener(OnBoardsClick);
+        UIEvents.a_UpdateCoins += UpdateCoins;
         InstantiateAllItems();
     }
 
@@ -67,7 +70,10 @@ public class ChessShopView : UIView
         m_PiecesParent.gameObject.SetActive(false);
         m_BoardsParent.gameObject.SetActive(true);
     }
-    
+    private void UpdateCoins(int coins)
+    {
+        m_CurrencyText.text = coins.ToString();
+    }
     
 }
 
@@ -77,5 +83,17 @@ public struct ShopItemData
     public string ItemName;
     public Sprite ItemImage;
     public eShopItemType ItemType;
-    public bool IsLocked;
+
+    [field: SerializeField] public bool IsLocked
+    {
+        get => ((PlayerPrefs.GetInt(Constants.LockedItem + ItemType.ToString() + ItemName, 1) == 1 && Price > 0));
+        set
+        {
+            PlayerPrefs.SetInt(Constants.LockedItem+ItemType.ToString()+ItemName,value ? 1 : 0 );
+            PlayerPrefs.Save();
+        }
+        
+    }
+
+    public int Price;
 }

@@ -30,7 +30,7 @@ public class CoinShopView : UIView
                 RemoveAllAds();
                 break;
             case eShopItem.FreeCoins:
-                AddCoins(75);
+                GoogleAdmobController.s_Instance.ShowAdRewardedAd(OnWatchAdCompleted);
                 break;
             case eShopItem.Coins1000:
                 AddCoins(1000);
@@ -54,6 +54,11 @@ public class CoinShopView : UIView
         
     }
 
+    private void OnWatchAdCompleted()
+    {
+        CurrencyManager.Instance.AddCoins(75);
+    }
+    
     private void AddCoins(int coins)
     {
         CurrencyManager.Instance.AddCoins(coins);
@@ -68,6 +73,7 @@ public class CoinShopView : UIView
     {
         SoundManager.Instance.PlaySound(SoundManager.SoundType.Click);
         UIViewManager.ShowLast();
+        GameManager.Instance.IsGameEnded = false;
     }
     
     private void OnDestroy()

@@ -1,4 +1,5 @@
 ﻿using System;
+using MoreMountains.NiceVibrations;
 using UnityEngine;
 
 public class SoundManager : Singleton<SoundManager>
@@ -14,7 +15,23 @@ public class SoundManager : Singleton<SoundManager>
 
 
 
-
+    public void PlaySoftHaptics()
+    {
+        if (DataManager.Instance.IsHapticsOn)
+            MMVibrationManager.Haptic(HapticTypes.SoftImpact, false, true, this);
+    }
+    
+    public void PlaySuccessHaptics()
+    {
+        if (DataManager.Instance.IsHapticsOn)
+            MMVibrationManager.Haptic(HapticTypes.Success, false, true, this);
+    }
+    
+    public void PlaySelectionHaptics()
+    {
+        if (DataManager.Instance.IsHapticsOn)
+            MMVibrationManager.Haptic(HapticTypes.Selection, false, true, this);
+    }
     
     
     public void PlaySound(SoundType soundType)

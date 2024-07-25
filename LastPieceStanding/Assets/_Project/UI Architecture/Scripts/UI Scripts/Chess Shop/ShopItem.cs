@@ -13,11 +13,23 @@ public class ShopItem : MonoBehaviour
     [SerializeField] private int m_Index = 0;
 
     private eShopItemType m_ItemType;
-
+    private bool m_IsLocked = false;
+    private ShopItemData m_Data;
     public void Initialize(ShopItemData data, int index)
     {
+        m_Data = data;
         m_ItemImage.sprite = data.ItemImage;
-        m_TitleText.text = data.ItemName;
+
+        if (data.IsLocked)
+        {
+            m_TitleText.text = data.Price + " Coins";
+            m_IsLocked = true;
+        }
+        else
+        {
+            m_TitleText.text = data.ItemName;
+        }
+
         m_LockIcon.SetActive(data.IsLocked);
         m_ItemType = data.ItemType;
         m_Index = index;
@@ -28,17 +40,32 @@ public class ShopItem : MonoBehaviour
 
     private void OnClickItem()
     {
-        if (m_ItemType == eShopItemType.Pieces)
+        if (m_IsLocked)
         {
-            PlayerPrefs.SetInt(Constants.EquippedPiece, m_Index);
-            
-            Debug.LogError("Piece Clicked");
+            if (CurrencyManager.Instance.SpendCoins(m_Data.Price))
+            {
+                m_Data.IsLocked = false;
+                m_IsLocked = false;
+                m_TitleText.text = m_Data.ItemName;
+                m_LockIcon.SetActive(m_Data.IsLocked);
+                EquippedItem();
+            }
+            else
+            {
+                Toast.s_Instance.Show("Oops! Not enough coins! Keep playing to earn more!");
+            }
         }
         else
         {
-            PlayerPrefs.SetInt(Constants.EquippedBoard, m_Index);
-            Debug.LogError("Board Clicked");
+            EquippedItem();
         }
+    }
+
+
+    private void EquippedItem()
+    {
+        Toast.s_Instance.Show($"{m_Data.ItemName} {m_Data.ItemType} is Equipped !!");
+        PlayerPrefs.SetInt(m_ItemType == eShopItemType.Pieces ? Constants.EquippedPiece : Constants.EquippedBoard, m_Index);
     }
     
     

@@ -17,8 +17,8 @@ public class UIViewManager : MonoBehaviour
     private readonly Stack<UIView> m_history = new Stack<UIView>();
 
     private static bool IsFirstTime = true;
-
-
+    
+   
     private void Awake()
     {
         s_Instance = this;
@@ -28,10 +28,12 @@ public class UIViewManager : MonoBehaviour
     {
         UIEvents.a_OnGameWin = null;
         UIEvents.a_OnGameLose= null;
-
+        Time.timeScale = 1;
 
         UIEvents.a_DeleteSelectedCard= null;
         UIEvents.a_UpdateCoins= null;
+
+        UIEvents.a_UpdateFreeCoinsButton = null;
         
         foreach (var uiView in m_allUIViews)
         {
@@ -47,15 +49,18 @@ public class UIViewManager : MonoBehaviour
             m_PopUp.HideWithoutAnimation();
         }
 
+        
+        if (m_GameUIView != null && !IsFirstTime)
+            Show(m_GameUIView, true);
+        
         if (m_startingUIView != null && IsFirstTime)
         {
             IsFirstTime = false;
             Show(m_startingUIView, true);
         }
-        
-        if (m_GameUIView != null && !IsFirstTime)
-            Show(m_GameUIView, true);
-        
+
+
+        // DataManager.Instance.Currency = 0;
         CurrencyManager.Instance.Coins = CurrencyManager.Instance.Coins;
     }
 

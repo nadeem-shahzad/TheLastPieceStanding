@@ -53,6 +53,7 @@ public class Tile : MonoBehaviour
            GameManager.Instance.m_PieceCounter--;
            LevelManager.Instance.RemoveEnemyPiece(m_CurrentPiece);
            SoundManager.Instance.PlaySound(SoundManager.SoundType.Capture);
+           SoundManager.Instance.PlaySuccessHaptics();
            if (GameManager.Instance.m_PieceCounter <= 0)
            {
                GameManager.Instance.IsGameEnded = true;
@@ -76,7 +77,7 @@ public class Tile : MonoBehaviour
    {
        if (GameManager.Instance.IsGameEnded)
            return;
-
+       SoundManager.Instance.PlaySoftHaptics();
        BoardManager.Instance.GetTile(BoardManager.Instance.Player.Position).SetPieceHere(null,true);
        BoardManager.Instance.MovePlayer(this);
    }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using _Project.UI_Architecture.Scripts.UI_Scripts;
@@ -27,14 +28,28 @@ public class FreeCoinsView : PopUp
     { 
         CurrencyManager.Instance.AddCoins(m_Coins);
         SoundManager.Instance.PlaySound(SoundManager.SoundType.Click);
+        UIEvents.a_UpdateFreeCoinsButton?.Invoke(false);
+        ClaimCoins(DateTime.Now);
         UIViewManager.HidePopUp();
+    }
+    
+    private void ClaimCoins(DateTime currentTime)
+    {
+        PlayerPrefs.SetString(Constants.LastFreeCoinsClaimed, currentTime.ToString());
+        PlayerPrefs.Save();
     }
 
     private void DoubleCoins()
     {
-        CurrencyManager.Instance.AddCoins(m_Coins * 2);
         SoundManager.Instance.PlaySound(SoundManager.SoundType.Click);
+        GoogleAdmobController.s_Instance.ShowAdRewardedAd(OnWatchAdCompleted);
+    }
+
+    private void OnWatchAdCompleted()
+    {
+        CurrencyManager.Instance.AddCoins(m_Coins * 2);
         UIViewManager.HidePopUp();
+        UIEvents.a_UpdateFreeCoinsButton?.Invoke(false);
     }
     
 }

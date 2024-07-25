@@ -48,7 +48,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_PieceName: 0
   m_PieceType: 0
-  m_Render: {fileID: 0}
+  m_Render: {fileID: 21300000, guid: 22cedde17eae3406f9749f9c1db86052, type: 3}
   m_LineRendererPrefab: {fileID: 7813066493103323177, guid: 5d6b2da6709084596957b70aaf0a06d8,
     type: 3}
   m_NextTile: {fileID: 0}

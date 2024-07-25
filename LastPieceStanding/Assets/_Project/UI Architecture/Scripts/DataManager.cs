@@ -14,10 +14,10 @@ public class DataManager
 
     private DataManager()
     {
-        UIEvents.m_SoundToggleUpdate?.Invoke(IsSoundOn);
-        UIEvents.m_HepticsToggleUpdate?.Invoke(IsHapticsOn);
-        UIEvents.m_gameplayCurrencyUpdate?.Invoke(Currency);
-        UIEvents.m_gameplayScoreUpdate?.Invoke(Score);
+        // UIEvents.m_SoundToggleUpdate?.Invoke(IsSoundOn);
+        // UIEvents.m_HepticsToggleUpdate?.Invoke(IsHapticsOn);
+        // UIEvents.m_gameplayCurrencyUpdate?.Invoke(Currency);
+        // UIEvents.m_gameplayScoreUpdate?.Invoke(Score);
     }
 
     private int m_Level = 1;

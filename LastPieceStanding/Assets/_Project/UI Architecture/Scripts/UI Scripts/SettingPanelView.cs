@@ -18,10 +18,8 @@ public class SettingPanelView : PopUp
 
     public override void Initialize()
     {
-        UIEvents.m_SoundToggleUpdate = null;
-        UIEvents.m_SoundToggleUpdate += SoundToggleUpdate;
-        UIEvents.m_HepticsToggleUpdate = null;
-        UIEvents.m_HepticsToggleUpdate += HapticsToggleUpdate;
+        SoundToggleUpdate(DataManager.Instance.IsSoundOn);
+        HapticsToggleUpdate(DataManager.Instance.IsHapticsOn);
         m_BackButton.onClick.AddListener(OnBackClick);
         m_PrivacyPolicy.onClick.AddListener(PrivacyPolicy);
         m_ShareUsButton.onClick.AddListener(ShareUs);

@@ -17,8 +17,6 @@ public class GamePlayPanelView : UIView
     [SerializeField] private Button m_FreeCoinsButton;
     [SerializeField] private Button m_RemoveAds;
     [SerializeField] private Button m_CollectionButton;
-    
-
     public PieceCard SelectedCard { get; set; } = null;
 
     public override void Initialize()
@@ -31,12 +29,22 @@ public class GamePlayPanelView : UIView
         UIEvents.m_gameplayScoreUpdate += ScoreUpdate;
         UIEvents.a_UpdateCoins += CurrencyUpdate;
         UIEvents.a_DeleteSelectedCard += DeleteSelectedCard;
+        
+        
+        UIEvents.a_UpdateFreeCoinsButton += UpdateFreeCoinsButtonActiveState;
+        UIEvents.a_UpdateFreeCoinsButton?.Invoke(CanClaim(DateTime.Now));
     }
 
+    private void UpdateFreeCoinsButtonActiveState(bool status)
+    {
+        m_FreeCoinsButton.gameObject.SetActive(status);
+    }
+    
     private void OnCollectionClick()
     {
         SoundManager.Instance.PlaySound(SoundManager.SoundType.Click);
         UIViewManager.Show<ChessShopView>();
+        GameManager.Instance.IsGameEnded = true;
     }
 
     private void CurrencyUpdate(int currency)
@@ -59,6 +67,8 @@ public class GamePlayPanelView : UIView
     {
         SoundManager.Instance.PlaySound(SoundManager.SoundType.Click);
         UIViewManager.Show<CoinShopView>();
+        GameManager.Instance.IsGameEnded = true;
+
     }
     
     private void OnFreeCoinsClick()
@@ -90,7 +100,17 @@ public class GamePlayPanelView : UIView
         Destroy(SelectedCard.gameObject);
     }
     
-    
+    private bool CanClaim(DateTime currentTime)
+    {
+        if (PlayerPrefs.HasKey(Constants.LastFreeCoinsClaimed))
+        {
+            string lastClaimTimeString = PlayerPrefs.GetString(Constants.LastFreeCoinsClaimed);
+            DateTime lastClaimTime = DateTime.Parse(lastClaimTimeString);
+
+            return (currentTime - lastClaimTime).TotalHours >= 24;
+        }
+        return true;
+    }
     
 
     private void OnDestroy()

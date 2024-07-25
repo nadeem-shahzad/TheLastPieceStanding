@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -9,7 +10,9 @@ using Random = UnityEngine.Random;
 public class WinPanelView : UIView
 {
     [SerializeField] private Button m_RestartButton;
+    [SerializeField] private Button m_WatchAdButton;
     [SerializeField] private Transform m_Emojies;
+    [SerializeField] private TMP_Text m_CoinsText;
 
     [Header("Animation Related Things")] 
     [SerializeField] private GameObject m_UpperBar;
@@ -18,6 +21,7 @@ public class WinPanelView : UIView
     public override void Initialize()
     {
         m_RestartButton.onClick.AddListener(OnRestart);
+        m_WatchAdButton.onClick.AddListener(OnWatchAdClick);
         UIEvents.a_OnGameWin = null;
         UIEvents.a_OnGameWin += OnWin;
     }
@@ -27,9 +31,11 @@ public class WinPanelView : UIView
     private void OnWin()
     {
         SoundManager.Instance.PlaySound(SoundManager.SoundType.LevelUp);
+        m_CoinsText.text = $"Coins {Constants.LevelWinPrice}";
         ShowEmoji();
         UIViewManager.Show(this,true);
         PanelAnimations();
+        
     }
 
     private void ShowEmoji()
@@ -40,8 +46,26 @@ public class WinPanelView : UIView
 
     public void OnRestart()
     {
-        // SoundManager.instance.PlaySound(SoundManager.SoundType.Click);
-        LevelManager.Level++;
+        SoundManager.Instance.PlaySound(SoundManager.SoundType.Click);
+        CurrencyManager.Instance.AddCoins(Constants.LevelWinPrice);
+        
+        if (LevelManager.Instance.Level >= 5)
+            GoogleAdmobController.s_Instance.ShowAdInterstitial();
+
+        LevelManager.Instance.Level++;
+        SceneManager.LoadScene("Gameplay");
+    }
+
+    private void OnWatchAdClick()
+    {
+        SoundManager.Instance.PlaySound(SoundManager.SoundType.Click);
+        GoogleAdmobController.s_Instance.ShowAdRewardedAd(OnWatchAdCompleted);
+    }
+
+    private void OnWatchAdCompleted()
+    {
+        CurrencyManager.Instance.AddCoins(Constants.LevelWinPrice * 2);
+        LevelManager.Instance.Level++;
         SceneManager.LoadScene("Gameplay");
     }
 
