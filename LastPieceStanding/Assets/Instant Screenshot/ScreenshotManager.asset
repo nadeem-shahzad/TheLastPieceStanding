@@ -16,6 +16,6 @@ MonoBehaviour:
   width: 1080
   height: 1920
   myCamera0: {fileID: 0}
-  isTransparent: 1
+  isTransparent: 0
   title: Instant Screenshot
   path: /Users/nadeemshahzad/Desktop/Check Mated King

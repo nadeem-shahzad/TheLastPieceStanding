@@ -1304,6 +1304,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2264216294894367320, guid: ecd26b2f121ba448cb7b97ecdd2e04c8,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2544114044403627901, guid: ecd26b2f121ba448cb7b97ecdd2e04c8,
         type: 3}
       propertyPath: m_Pivot.x
@@ -1408,6 +1413,47 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: UI Canvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 3045233607632480847, guid: ecd26b2f121ba448cb7b97ecdd2e04c8,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3584220045619599230, guid: ecd26b2f121ba448cb7b97ecdd2e04c8,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 9b96617e676bd4bf18a579ab77b9d15f,
+        type: 3}
+    - target: {fileID: 3618826299766534649, guid: ecd26b2f121ba448cb7b97ecdd2e04c8,
+        type: 3}
+      propertyPath: _backGroundCColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3618826299766534649, guid: ecd26b2f121ba448cb7b97ecdd2e04c8,
+        type: 3}
+      propertyPath: _backGroundCColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3618826299766534649, guid: ecd26b2f121ba448cb7b97ecdd2e04c8,
+        type: 3}
+      propertyPath: _backGroundCColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4138945536118996722, guid: ecd26b2f121ba448cb7b97ecdd2e04c8,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6487400140594288888, guid: ecd26b2f121ba448cb7b97ecdd2e04c8,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8479114601088881550, guid: ecd26b2f121ba448cb7b97ecdd2e04c8,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

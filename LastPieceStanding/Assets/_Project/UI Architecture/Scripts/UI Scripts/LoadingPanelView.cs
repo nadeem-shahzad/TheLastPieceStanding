@@ -23,7 +23,7 @@ public class LoadingPanelView : UIView
     private float currentValue;
     private float timer;
     
-    private bool IsTutorialDone
+    public bool IsTutorialDone
     {
         get => PlayerPrefs.GetInt(Constants.TutorialKey, 0) == 1;
         set
@@ -70,7 +70,6 @@ public class LoadingPanelView : UIView
         if (m_TutorialView != null && IsTutorialDone is false)
         {
             UIViewManager.Show(m_TutorialView, true);
-            IsTutorialDone = true;
         }
         
     }

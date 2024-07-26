@@ -26,6 +26,7 @@ public class TutorialPanel : UIView
         
         if (m_Index >= m_MiniPanels.Length )
         {
+            UIViewManager.GetUIView<LoadingPanelView>().IsTutorialDone = true;
             SceneManager.LoadScene("Gameplay");
         }
         else

@@ -13,6 +13,7 @@ public class LevelEditor : MonoBehaviour
     public Transform m_PlayerPiece;
     public Material m_BlackMat;
     public Material m_WhiteMat;
+    public Vector2 m_Position;
     public int m_Level = 0;
 
 
@@ -24,6 +25,7 @@ public class LevelEditor : MonoBehaviour
         var newPiece = Instantiate(piece, isEnemy ? m_EnemyParent : m_PlayerAdditionalMovesParent);
         newPiece.Init(m_PieceType, isEnemy ? m_BlackMat : m_WhiteMat);
         newPiece.name = m_PieceName.ToString();
+        newPiece.transform.position = new Vector3(m_Position.x, 0, m_Position.y);
     }
 
     [ContextMenu("ShowJSON")]
