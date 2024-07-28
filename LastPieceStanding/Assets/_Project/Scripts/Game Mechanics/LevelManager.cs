@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class LevelManager : MonoBehaviour
 {
@@ -23,6 +24,10 @@ public class LevelManager : MonoBehaviour
         }
     }
 
+    
+    
+    // public int Level = 4;
+
     private List<Piece> m_AllEnemyPieces;
 
     public static LevelManager Instance;
@@ -34,7 +39,25 @@ public class LevelManager : MonoBehaviour
 
     public void InitializeLevel()
     {
-        var data = LoadLevelFromResources();
+        UIEvents.a_UpdateLevelText?.Invoke(Level + 1);
+        LevelData data = null;
+        try
+        {
+            data = LoadLevelFromResources(Level);
+        }
+        catch (Exception e)
+        {
+            DataManager.Instance.IsRandomLevel = true;
+        }
+
+
+        if (DataManager.Instance.IsRandomLevel)
+        {
+            Debug.Log("Random Level");
+            data = LoadLevelFromResources(Random.Range(15,24));
+        }
+        
+        
         float delay = 0f;
         var matIndex = PlayerPrefs.GetInt(Constants.EquippedPiece, 0);
         var whiteMat = m_AllWhite[matIndex];
@@ -78,6 +101,7 @@ public class LevelManager : MonoBehaviour
             UIViewManager.GetUIView<GamePlayPanelView>().InitializePieceCards(allPieces);
         }
         
+        
     }
 
 
@@ -97,9 +121,9 @@ public class LevelManager : MonoBehaviour
     
     
 
-    private LevelData LoadLevelFromResources()
+    private LevelData LoadLevelFromResources(int level)
     {
-        var jsonFile = Resources.Load<TextAsset>($"Levels/{Level}");
+        var jsonFile = Resources.Load<TextAsset>($"Levels/{level}");
         return JsonUtility.FromJson<LevelData>(jsonFile.text);
     }
 

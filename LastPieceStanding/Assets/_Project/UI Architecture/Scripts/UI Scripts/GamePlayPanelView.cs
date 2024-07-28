@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -11,6 +12,7 @@ public class GamePlayPanelView : UIView
     [SerializeField] private Button m_SettingsButton;
     [SerializeField] private Text m_ScoreText;
     [SerializeField] private Text m_CurrencyText;
+    [SerializeField] private TMP_Text m_LevelText;
     [SerializeField] private PieceCard m_CardPrefab;
     [SerializeField] private Transform m_CardPrefabParent;
     [SerializeField] private Button m_ShopButton;
@@ -29,10 +31,20 @@ public class GamePlayPanelView : UIView
         UIEvents.m_gameplayScoreUpdate += ScoreUpdate;
         UIEvents.a_UpdateCoins += CurrencyUpdate;
         UIEvents.a_DeleteSelectedCard += DeleteSelectedCard;
-        
-        
+
+        // UIEvents.a_UpdateLevelText = null;
+        // UIEvents.a_UpdateLevelText += UpdateLevelText;
+        int level = PlayerPrefs.GetInt(Constants.LevelsKey, 0) + 1;
+        UpdateLevelText(level);
         UIEvents.a_UpdateFreeCoinsButton += UpdateFreeCoinsButtonActiveState;
         UIEvents.a_UpdateFreeCoinsButton?.Invoke(CanClaim(DateTime.Now));
+
+        if (DataManager.Instance.IsRated == false && Constants.IsRateUsPanelShowed == false && level > 5)
+        {
+            UIViewManager.ShowPopUp<RateUsPopup>();
+            Constants.IsRateUsPanelShowed = true;
+        }
+            
     }
 
     private void UpdateFreeCoinsButtonActiveState(bool status)
@@ -50,6 +62,11 @@ public class GamePlayPanelView : UIView
     private void CurrencyUpdate(int currency)
     {
         m_CurrencyText.text = currency.ToString();
+    }
+
+    private void UpdateLevelText(int level)
+    {
+        m_LevelText.text = $"Level : {level}";
     }
 
     private void ScoreUpdate(int scoreValue)

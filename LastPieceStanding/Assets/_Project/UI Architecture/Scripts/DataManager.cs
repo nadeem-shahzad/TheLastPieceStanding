@@ -76,6 +76,16 @@ public class DataManager
             PlayerPrefs.Save();
         }
     }
+    
+    public bool IsRandomLevel
+    {
+        get => PlayerPrefs.GetInt(Constants.SoundKey, 0) == 1;
+        set
+        {
+            PlayerPrefs.SetInt(Constants.SoundKey, value ? 1 : 0);
+            PlayerPrefs.Save();
+        }
+    }
     public bool IsHapticsOn
     {
         get => PlayerPrefs.GetInt(Constants.HapticsKey, 1) == 1;
@@ -86,6 +96,15 @@ public class DataManager
         }
     }
 
+    public bool IsRated
+    {
+        get => PlayerPrefs.GetInt(Constants.RateUsKey, 0) == 1;
+        set
+        {
+            PlayerPrefs.SetInt(Constants.RateUsKey, value ? 1 : 0);
+            PlayerPrefs.Save();
+        }
+    }
 
 
     private void Awake()

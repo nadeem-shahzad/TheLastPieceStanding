@@ -83,6 +83,7 @@ public class Piece : MonoBehaviour
             m_NextTile = BoardManager.Instance.GetTilesToMoveOnForEnemy(this);
             if (m_NextTile!= null)
             {
+                m_LineRenderer.gameObject.SetActive(true);
                 var coordinates = CalculateCoordinates();
                 m_LineRenderer.UpdateLineCoordinates(coordinates.zLength,coordinates.yRotation);
             }
@@ -104,13 +105,28 @@ public class Piece : MonoBehaviour
         else
         {
             float angle = Vector3.Angle(m_NextTile.Position, Position);
-            float sign = Mathf.Sign(Vector3.Dot(Vector3.up, Vector3.Cross(m_NextTile.Position, Position)));
+            
+            Vector3 targetDirection = m_NextTile.Position - Position;
+            Vector3 forward = transform.forward;
+
+            // Using Vector3.Cross to find the cross product
+            Vector3 crossProduct = Vector3.Cross(forward, targetDirection);
+            float sign = 1;
+
+            sign = crossProduct.y > 0 ? -1 : 1;
+
+            // float sign = Mathf.Sign(Vector3.Dot(Vector3.up, Vector3.Cross(m_NextTile.Position, Position)));
             float yRotation = angle * sign;
+            // float yRotation = angle;
             
             if (yRotation> 0)
                 yRotation = 45;
             else
                 yRotation = -45;
+
+
+            if (m_PieceName == ePieceName.Knight)
+                return (-2.3f,sign * 26.5f);
             
             return (zLength * 1.43f,yRotation);
         }
@@ -126,7 +142,7 @@ public class Piece : MonoBehaviour
     public void MoveEnemyPiece()
     {
         var tile = m_NextTile;
-        
+        m_LineRenderer.gameObject.SetActive(false);
         var hashTable = iTween.Hash("position", tile.Position, "speed", 2.5f, "easetype", iTween.EaseType.easeInOutCubic, 
             "oncompletetarget",gameObject, "oncomplete","OnCompleteMove");
         iTween.MoveTo(gameObject, hashTable);

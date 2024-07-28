@@ -19,4 +19,5 @@ public class UIEvents
     public static Action<int> a_UpdateCoins;
 
     public static Action<bool> a_UpdateFreeCoinsButton;
+    public static Action<int> a_UpdateLevelText;
 }

@@ -63,6 +63,7 @@ public class SettingPanelView : PopUp
     {
         SoundManager.Instance.PlaySound(SoundManager.SoundType.Click);
         Application.OpenURL(Constants.ApplicationLink);
+        DataManager.Instance.IsRated = true;
     }
 
     private void ShareUs()

@@ -6,6 +6,7 @@ public class Constants
 {
     public static string CoinsKey = "InGameCoins";
     public static string LevelsKey = "InGameLevels";
+    public static string RandomLevelsKey = "InGameRandomLevelsKey";
     public static string SoundKey = "InGameSounds";
     public static string HapticsKey = "InGameHaptics";
     public static string EquippedPiece = "InGameEquippedPiece";
@@ -18,5 +19,6 @@ public class Constants
     public static int LevelWinPrice = 20;
 
 
-
+    public static string RateUsKey = "InGameRateUs";
+    public static bool IsRateUsPanelShowed = false;
 }

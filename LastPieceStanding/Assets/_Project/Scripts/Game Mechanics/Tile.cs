@@ -48,7 +48,7 @@ public class Tile : MonoBehaviour
        }
        
 
-       if ((m_CurrentPiece != null && m_CurrentPiece.IsPlayerPiece is false))
+       if ((m_CurrentPiece != null && m_CurrentPiece.IsPlayerPiece is false && piece.IsPlayerPiece))
        {
            GameManager.Instance.m_PieceCounter--;
            LevelManager.Instance.RemoveEnemyPiece(m_CurrentPiece);

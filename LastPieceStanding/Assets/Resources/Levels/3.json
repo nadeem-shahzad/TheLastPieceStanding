@@ -1,1 +1,1 @@
-{"enemyPieces":[{"pieceName":5,"piecePosition":{"x":3.0,"y":0.0,"z":5.0}},{"pieceName":5,"piecePosition":{"x":4.0,"y":0.0,"z":6.0}},{"pieceName":5,"piecePosition":{"x":2.0,"y":0.0,"z":6.0}},{"pieceName":5,"piecePosition":{"x":3.0,"y":0.0,"z":6.0}}],"playerPosition":{"x":3.0,"y":0.0,"z":0.0},"playerAdditionalMoves":[]}
+{"enemyPieces":[{"pieceName":3,"piecePosition":{"x":3.0,"y":0.0,"z":7.0}},{"pieceName":5,"piecePosition":{"x":6.0,"y":0.0,"z":3.0}}],"playerPosition":{"x":5.0,"y":0.0,"z":2.0},"playerAdditionalMoves":[]}
