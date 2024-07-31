@@ -1,5 +1,13 @@
 {
   "dependencies": {
+    "com.supersonic.wisdom": {
+      "version": "file:SupersonicWisdom",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {
+        "com.unity.nuget.newtonsoft-json": "3.2.1"
+      }
+    },
     "com.unity.adaptiveperformance": {
       "version": "5.1.0",
       "depth": 1,
@@ -75,7 +83,7 @@
     },
     "com.unity.nuget.newtonsoft-json": {
       "version": "3.2.1",
-      "depth": 2,
+      "depth": 1,
       "source": "registry",
       "dependencies": {},
       "url": "https://packages.unity.com"

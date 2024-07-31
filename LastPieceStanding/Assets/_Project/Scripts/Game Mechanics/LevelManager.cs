@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using SupersonicWisdomSDK;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -100,6 +101,7 @@ public class LevelManager : MonoBehaviour
             var allPieces = data.playerAdditionalMoves.Select(enemyData => PiecesManager.Instance.GetPiece(enemyData)).ToList();
             UIViewManager.GetUIView<GamePlayPanelView>().InitializePieceCards(allPieces);
         }
+        
         
         
     }

@@ -138,10 +138,7 @@ PlayerSettings:
   vulkanEnableCommandBufferRecycling: 1
   loadStoreDebugModeEnabled: 0
   bundleVersion: 1.0.0
-  preloadedAssets:
-  - {fileID: 11400000, guid: 91aafd7f79a1142acb114e0398ae8692, type: 2}
-  - {fileID: 11400000, guid: 3c01ab48526454a548dcbc349bfa1339, type: 2}
-  - {fileID: 5779304809914212897, guid: 4f926ae2e68204d68b571087ac8d2dcc, type: 2}
+  preloadedAssets: []
   metroInputSource: 0
   wsaTransparentSwapchain: 0
   m_HolographicPauseOnTrackingLoss: 1
@@ -254,7 +251,7 @@ PlayerSettings:
   clonedFromGUID: 3df0038eaa8740a438c96d5b01ba661e
   templatePackageId: com.unity.template.mobile3d@3.0.0
   templateDefaultScene: Assets/Scenes/SampleScene.unity
-  useCustomMainManifest: 0
+  useCustomMainManifest: 1
   useCustomLauncherManifest: 0
   useCustomMainGradleTemplate: 1
   useCustomLauncherGradleManifest: 0
@@ -851,7 +848,9 @@ PlayerSettings:
   webGLWebAssemblyBigInt: 0
   webGLCloseOnQuit: 0
   scriptingDefineSymbols:
-    Android: MOREMOUNTAINS_NICEVIBRATIONS
+    Android: MOREMOUNTAINS_NICEVIBRATIONS;SW_STAGE_STAGE10;SW_STAGE_STAGE10_OR_ABOVE;gameanalytics_admob_enabled
+    Standalone: SW_STAGE_STAGE10;SW_STAGE_STAGE10_OR_ABOVE
+    iPhone: SW_STAGE_STAGE10;SW_STAGE_STAGE10_OR_ABOVE;gameanalytics_admob_enabled
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend:

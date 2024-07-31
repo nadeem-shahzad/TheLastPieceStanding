@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using SupersonicWisdomSDK;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -31,6 +32,7 @@ public class GameOverPanelView : UIView
         m_CoinsText.text = $"Coins {Constants.LevelWinPrice / 2}";
         ShowEmoji();
         UIViewManager.Show(this,true);
+        SupersonicWisdom.Api.NotifyLevelFailed(ESwLevelType.Regular,(long)(LevelManager.Instance.Level + 1),null);
         // PanelAnimations();
     }
 

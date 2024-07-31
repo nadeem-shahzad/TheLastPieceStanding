@@ -20,7 +20,7 @@ public class GamePlayPanelView : UIView
     [SerializeField] private Button m_RemoveAds;
     [SerializeField] private Button m_CollectionButton;
     public PieceCard SelectedCard { get; set; } = null;
-
+    private int m_Level = 0;
     public override void Initialize()
     {
         m_SettingsButton.onClick.AddListener(OnSettingsClick);
@@ -34,17 +34,23 @@ public class GamePlayPanelView : UIView
 
         // UIEvents.a_UpdateLevelText = null;
         // UIEvents.a_UpdateLevelText += UpdateLevelText;
-        int level = PlayerPrefs.GetInt(Constants.LevelsKey, 0) + 1;
-        UpdateLevelText(level);
+        m_Level = PlayerPrefs.GetInt(Constants.LevelsKey, 0) + 1;
+        UpdateLevelText(m_Level);
         UIEvents.a_UpdateFreeCoinsButton += UpdateFreeCoinsButtonActiveState;
         UIEvents.a_UpdateFreeCoinsButton?.Invoke(CanClaim(DateTime.Now));
 
-        if (DataManager.Instance.IsRated == false && Constants.IsRateUsPanelShowed == false && level > 5)
+        Invoke(nameof(CheckRateUsPanel),2f);
+            
+    }
+
+
+    private void CheckRateUsPanel()
+    {
+        if (DataManager.Instance.IsRated == false && Constants.IsRateUsPanelShowed == false && m_Level > 5)
         {
             UIViewManager.ShowPopUp<RateUsPopup>();
             Constants.IsRateUsPanelShowed = true;
         }
-            
     }
 
     private void UpdateFreeCoinsButtonActiveState(bool status)

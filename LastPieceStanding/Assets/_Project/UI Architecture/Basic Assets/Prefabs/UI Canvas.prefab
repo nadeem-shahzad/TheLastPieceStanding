@@ -12790,7 +12790,6 @@ GameObject:
   - component: {fileID: 7950899717087251321}
   - component: {fileID: 4552984300824947887}
   - component: {fileID: 1924037885061687535}
-  - component: {fileID: 8470675388797846760}
   m_Layer: 5
   m_Name: Action Button
   m_TagString: Untagged
@@ -12900,46 +12899,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &8470675388797846760
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4910125654562287183}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b79b5624d944058bd39aad2b90fb275, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  productId: com.nplays.checkmatedking.removeads
-  buttonType: 0
-  consumePurchase: 0
-  onTransactionsRestored:
-    m_PersistentCalls:
-      m_Calls: []
-  onPurchaseComplete:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: RemoveAdsView, Assembly-CSharp
-        m_MethodName: RemoveAllAds
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  onPurchaseFailed:
-    m_PersistentCalls:
-      m_Calls: []
-  onProductFetched:
-    m_PersistentCalls:
-      m_Calls: []
-  button: {fileID: 1924037885061687535}
 --- !u!1 &4923824939669021862
 GameObject:
   m_ObjectHideFlags: 0

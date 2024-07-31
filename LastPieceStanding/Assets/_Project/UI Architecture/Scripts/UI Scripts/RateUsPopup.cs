@@ -26,5 +26,6 @@ public class RateUsPopup : PopUp
         SoundManager.Instance.PlaySound(SoundManager.SoundType.Click);
         Application.OpenURL(Constants.ApplicationLink);
         DataManager.Instance.IsRated = true;
+        UIViewManager.HidePopUp();
     }
 }
