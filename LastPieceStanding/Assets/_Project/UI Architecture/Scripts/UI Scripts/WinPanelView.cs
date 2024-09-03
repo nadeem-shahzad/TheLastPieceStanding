@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using SupersonicWisdomSDK;
+// using SupersonicWisdomSDK;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -53,7 +53,7 @@ public class WinPanelView : UIView
         if (LevelManager.Instance.Level >= 5)
             GoogleAdmobController.s_Instance.ShowAdInterstitial();
         
-        SupersonicWisdom.Api.NotifyLevelCompleted(ESwLevelType.Regular,(long)(LevelManager.Instance.Level + 1),null);
+        // SupersonicWisdom.Api.NotifyLevelCompleted(ESwLevelType.Regular,(long)(LevelManager.Instance.Level + 1),null);
         LevelManager.Instance.Level++;
         SceneManager.LoadScene("Gameplay");
     }

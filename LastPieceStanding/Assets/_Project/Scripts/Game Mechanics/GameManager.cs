@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using SupersonicWisdomSDK;
+// using SupersonicWisdomSDK;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -18,9 +18,9 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         // Subscribe
-        SupersonicWisdom.Api.AddOnReadyListener(OnSupersonicWisdomReady);    
+        // SupersonicWisdom.Api.AddOnReadyListener(OnSupersonicWisdomReady);    
         // Then initialize
-        SupersonicWisdom.Api.Initialize();
+        // SupersonicWisdom.Api.Initialize();
     }
 
 
@@ -34,7 +34,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         Instance = this;
-        
+        OnSupersonicWisdomReady();
         if (IsInitialized)
             Invoke(nameof(StartGame),3f);
     }
@@ -43,7 +43,7 @@ public class GameManager : MonoBehaviour
     private void StartGame()
     {
         IsGameEnded = false;
-        SupersonicWisdom.Api.NotifyLevelStarted(ESwLevelType.Regular,(long)(LevelManager.Instance.Level + 1),null);
+        // SupersonicWisdom.Api.NotifyLevelStarted(ESwLevelType.Regular,(long)(LevelManager.Instance.Level + 1),null);
     }
     
     

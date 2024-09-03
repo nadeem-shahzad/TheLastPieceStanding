@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2919ee1703bd0448e83d933d308bc363, type: 3}
   m_Name: GoogleAdsSettings
   m_EditorClassIdentifier: 
-  m_BannerId: 
-  m_IntersititialId: 
-  m_RewardedId: 
-  m_IsTestAds: 1
+  m_BannerId: ca-app-pub-5126911418419768/5631739931
+  m_IntersititialId: ca-app-pub-5126911418419768/3100279089
+  m_RewardedId: ca-app-pub-5126911418419768/9474115747
+  m_IsTestAds: 0
